@@ -1,0 +1,55 @@
+#!/bin/bash
+# -*- sh -*-
+
+: << =cut
+=head1 NAME
+
+user_online - Plugin to monitor online users from vbulletin forum
+
+=head1 CONFIGURATION
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=head1 BUGS
+
+None known
+
+=head1 AUTHOR
+
+Robert Tulke <rt@debian.sh>
+
+=head1 LICENSE
+
+gpl v2
+
+=cut
+
+case $1 in
+config)
+cat <<'EOM'
+graph_title vBulletin Users online
+graph_vlabel users
+graph_category Website
+graph_scale yes
+graph_printf %.0lf
+graph_info This graph shows vBulletin users online
+guests_online.label Guests online
+guests_online.info The ammount of guests online
+registered_online.label Registered online
+registered_online.info The ammount ofregistered users online
+online_total.label Total online
+online_total.info The total ammount online users
+EOM
+exit 0;;
+esac
+
+guests_online=$(lynx -source http://your-vb-forum.com/online1.php| awk -F ';' '{printf "%1.0f", $1}')
+registered_online=$(lynx -source http://your-vb-forum.com/online1.php| awk -F ';' '{printf "%1.0f", $2}')
+online_total=$(lynx -source http://your-vb-forum.com/online1.php| awk -F ';' '{printf "%1.0f", $3}')
+
+echo "guests_online.value $guests_online"
+echo "registered_online.value $registered_online"
+echo "online_total.value $online_total"
