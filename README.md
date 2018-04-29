@@ -24,6 +24,8 @@ registered_online=$(lynx -source http://your-vb-forum.com/online1.php| awk -F ';
 online_total=$(lynx -source http://your-vb-forum.com/online1.php| awk -F ';' '{printf "%1.0f", $3}')
 ```
 
+restart
+
 ```
 /etc/init.d/munin restart
 ```
