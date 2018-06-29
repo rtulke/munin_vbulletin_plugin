@@ -7,6 +7,7 @@ generate a munin graph from vbulletin forum (total users online, guests, registe
 aptitude install munin
 ~~~~
 
+
 ~~~~
 mv vbuseronline-plugin /usr/share/munin/plugins/vbuseronline
 chmod 755 /usr/share/munin/plugins/vbuseronline
